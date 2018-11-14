@@ -1,4 +1,4 @@
-package com.yfbx.rxlib.rxbus;
+package com.yfbx.rxlib.loader;
 
 /**
  * Author:Edward

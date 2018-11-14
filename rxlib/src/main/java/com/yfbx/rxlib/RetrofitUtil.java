@@ -1,8 +1,9 @@
-package com.yfbx.rxlib.utils;
+package com.yfbx.rxlib;
 
+import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import com.yfbx.rxlib.interceptor.HeaderInterceptor;
 import com.yfbx.rxlib.interceptor.LogInterceptor;
-import com.yfbx.rxlib.interceptor.ProgressInterceptor;
+import com.yfbx.rxlib.loader.ProgressInterceptor;
 
 import okhttp3.Headers;
 import okhttp3.OkHttpClient;
@@ -28,8 +29,9 @@ public class RetrofitUtil {
     private Retrofit getRetrofit(String host, Headers headers, boolean needLog, boolean loadingProgress) {
         Retrofit.Builder builder = new Retrofit.Builder();
         builder.baseUrl(host);
-        builder.addConverterFactory(GsonConverterFactory.create());
         builder.client(getClient(headers, needLog, loadingProgress));
+        builder.addConverterFactory(GsonConverterFactory.create());
+        builder.addCallAdapterFactory(RxJava2CallAdapterFactory.create());
         return builder.build();
     }
 

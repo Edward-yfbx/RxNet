@@ -2,7 +2,7 @@ package com.yfbx.rxnet.net;
 
 import android.support.v4.app.FragmentActivity;
 
-import com.yfbx.rxlib.subscriber.BaseSubscriber;
+import com.yfbx.rxlib.BaseSubscriber;
 
 /**
  * Author: Edward

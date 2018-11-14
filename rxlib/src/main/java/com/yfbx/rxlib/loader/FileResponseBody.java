@@ -1,6 +1,5 @@
-package com.yfbx.rxlib.body;
+package com.yfbx.rxlib.loader;
 
-import com.yfbx.rxlib.rxbus.ProgressEvent;
 import com.yfbx.rxlib.rxbus.RxBus;
 
 import java.io.IOException;

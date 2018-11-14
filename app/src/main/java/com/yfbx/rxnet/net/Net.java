@@ -1,6 +1,6 @@
 package com.yfbx.rxnet.net;
 
-import com.yfbx.rxlib.utils.RetrofitUtil;
+import com.yfbx.rxlib.RetrofitUtil;
 import com.yfbx.rxnet.BuildConfig;
 
 import okhttp3.Headers;
@@ -14,7 +14,7 @@ import retrofit2.Retrofit;
  */
 public class Net {
 
-    private static final String HOST = "http://localhost:8080/";
+    private static final String HOST = "http://10.0.0.47:8080/";
     private static Retrofit retrofit;
 
     public synchronized static <T> T create(Class<T> clazz) {

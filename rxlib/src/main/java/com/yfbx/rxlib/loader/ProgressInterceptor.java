@@ -1,6 +1,6 @@
-package com.yfbx.rxlib.interceptor;
+package com.yfbx.rxlib.loader;
 
-import com.yfbx.rxlib.body.FileResponseBody;
+import com.yfbx.rxlib.loader.FileResponseBody;
 
 import java.io.IOException;
 

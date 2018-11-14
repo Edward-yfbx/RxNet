@@ -1,4 +1,4 @@
-package com.yfbx.rxlib.subscriber;
+package com.yfbx.rxlib;
 
 import android.app.Activity;
 import android.app.ProgressDialog;

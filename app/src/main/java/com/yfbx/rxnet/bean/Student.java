@@ -5,12 +5,11 @@ package com.yfbx.rxnet.bean;
  * Date: 2018/11/13
  * Description:
  */
-public class User {
+public class Student {
 
     private String id;
     private String name;
-    private String account;
-    private String password;
+    private int age;
 
 
     public String getId() {
@@ -29,19 +28,11 @@ public class User {
         this.name = name;
     }
 
-    public String getAccount() {
-        return account;
+    public int getAge() {
+        return age;
     }
 
-    public void setAccount(String account) {
-        this.account = account;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
+    public void setAge(int age) {
+        this.age = age;
     }
 }

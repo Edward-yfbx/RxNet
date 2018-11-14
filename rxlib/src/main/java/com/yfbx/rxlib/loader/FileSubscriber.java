@@ -1,7 +1,6 @@
-package com.yfbx.rxlib.subscriber;
+package com.yfbx.rxlib.loader;
 
 import com.yfbx.rxlib.rxbus.EventSubscriber;
-import com.yfbx.rxlib.rxbus.ProgressEvent;
 import com.yfbx.rxlib.rxbus.RxBus;
 
 import io.reactivex.Observer;
