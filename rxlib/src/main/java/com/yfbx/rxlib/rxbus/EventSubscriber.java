@@ -1,13 +1,14 @@
 package com.yfbx.rxlib.rxbus;
 
-import rx.Subscriber;
+import io.reactivex.Observer;
 
 /**
  * 为RxBus使用的Subscriber, 主要提供next事件的try,catch
  * <p>
  * Created by YoKeyword on 16/7/20.
  */
-public abstract class EventSubscriber<T> extends Subscriber<T> {
+public abstract class EventSubscriber<T> implements Observer<T> {
+
 
     @Override
     public void onNext(T t) {
@@ -19,7 +20,8 @@ public abstract class EventSubscriber<T> extends Subscriber<T> {
     }
 
     @Override
-    public void onCompleted() {
+    public void onComplete() {
+
     }
 
     @Override

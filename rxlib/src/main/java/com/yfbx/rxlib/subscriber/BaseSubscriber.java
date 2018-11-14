@@ -7,10 +7,10 @@ import android.arch.lifecycle.LifecycleObserver;
 import android.arch.lifecycle.LifecycleOwner;
 import android.arch.lifecycle.OnLifecycleEvent;
 import android.content.DialogInterface;
-import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
 
-import rx.Subscriber;
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
 
 /**
  * Date:2017/12/15
@@ -18,9 +18,10 @@ import rx.Subscriber;
  * Description:
  */
 
-public class BaseSubscriber<T> extends Subscriber<T> implements LifecycleObserver, DialogInterface.OnCancelListener {
+public class BaseSubscriber<T> implements Observer<T>, LifecycleObserver, DialogInterface.OnCancelListener {
 
     private ProgressDialog loadingView;
+    private Disposable disposable;
 
     public BaseSubscriber(FragmentActivity activity) {
         this(activity, true);
@@ -29,65 +30,64 @@ public class BaseSubscriber<T> extends Subscriber<T> implements LifecycleObserve
     public BaseSubscriber(FragmentActivity activity, boolean showLoading) {
         activity.getLifecycle().addObserver(this);
         if (showLoading) {
-            createLoading(activity);
+            showLoading(activity);
         }
     }
 
-
-    @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
-    private void onStop(LifecycleOwner owner) {
-        unsubscribe();
-        dismissLoading();
-        owner.getLifecycle().removeObserver(this);
+    @Override
+    public void onSubscribe(Disposable disposable) {
+        this.disposable = disposable;
     }
 
     @Override
-    public void onStart() {
-        showLoading();
-    }
+    public void onNext(T t) {
 
-    @Override
-    public void onCompleted() {
-        dismissLoading();
-    }
-
-    @Override
-    public void onCancel(DialogInterface dialog) {
-        unsubscribe();
     }
 
     @Override
     public void onError(Throwable e) {
         e.printStackTrace();
-        onCompleted();
+        dismissLoading();
     }
 
     @Override
-    public void onNext(T t) {
-        onCompleted();
+    public void onComplete() {
+        dismissLoading();
     }
 
 
-    private void createLoading(Activity activity) {
+    /**
+     * 生命周期 STOP
+     */
+    @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
+    private void onStop(LifecycleOwner owner) {
+        disposable.dispose();
+        dismissLoading();
+        owner.getLifecycle().removeObserver(this);
+    }
+
+
+    /**
+     * Loading 取消
+     */
+    @Override
+    public void onCancel(DialogInterface dialog) {
+        disposable.dispose();
+    }
+
+
+    /**
+     * Loading Dialog
+     */
+    private void showLoading(Activity activity) {
         loadingView = new ProgressDialog(activity);
         loadingView.setCanceledOnTouchOutside(false);
         loadingView.setOnCancelListener(this);
-    }
-
-    private void showLoading() {
-        if (loadingView == null) {
-            return;
-        }
-        new Handler().post(new Runnable() {
-            @Override
-            public void run() {
-                loadingView.show();
-            }
-        });
+        loadingView.show();
     }
 
     private void dismissLoading() {
-        if (loadingView != null) {
+        if (loadingView != null && loadingView.isShowing()) {
             loadingView.dismiss();
         }
     }

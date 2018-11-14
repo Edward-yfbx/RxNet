@@ -1,16 +1,15 @@
 package com.yfbx.rxlib.rxbus;
 
-import rx.Observable;
-import rx.subjects.PublishSubject;
-import rx.subjects.SerializedSubject;
-import rx.subjects.Subject;
+import io.reactivex.Observable;
+import io.reactivex.subjects.PublishSubject;
+import io.reactivex.subjects.Subject;
 
 public class RxBus {
     private static volatile RxBus instance;
-    private final Subject<Object, Object> subject;
+    private final Subject<Object> subject;
 
     private RxBus() {
-        subject = new SerializedSubject<>(PublishSubject.create());
+        subject = PublishSubject.create();
     }
 
     /**

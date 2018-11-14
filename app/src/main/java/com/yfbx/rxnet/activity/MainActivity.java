@@ -9,8 +9,9 @@ import com.yfbx.rxnet.net.Api;
 import com.yfbx.rxnet.net.MySubscriber;
 import com.yfbx.rxnet.net.Net;
 
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
+
 
 public class MainActivity extends AppCompatActivity {
 

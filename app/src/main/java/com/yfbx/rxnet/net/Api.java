@@ -2,10 +2,10 @@ package com.yfbx.rxnet.net;
 
 import com.yfbx.rxnet.bean.User;
 
+import io.reactivex.Observable;
 import retrofit2.http.Field;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
-import rx.Observable;
 
 /**
  * Author:Edward

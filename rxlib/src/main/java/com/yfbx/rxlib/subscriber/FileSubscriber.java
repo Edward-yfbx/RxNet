@@ -4,9 +4,9 @@ import com.yfbx.rxlib.rxbus.EventSubscriber;
 import com.yfbx.rxlib.rxbus.ProgressEvent;
 import com.yfbx.rxlib.rxbus.RxBus;
 
-import rx.Subscriber;
-import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
 
 /**
  * Author:Edward
@@ -14,34 +14,49 @@ import rx.android.schedulers.AndroidSchedulers;
  * Description:
  */
 
-public abstract class FileSubscriber<T> extends Subscriber<T> {
+public abstract class FileSubscriber<T> implements Observer<T> {
 
-    private Subscription subscription;
+    private Disposable disposable;
 
     public FileSubscriber() {
         onProgress();
     }
 
+
     @Override
-    public void onCompleted() {
-        subscription.unsubscribe();
+    public void onSubscribe(Disposable d) {
+
+    }
+
+    @Override
+    public void onNext(T t) {
+
     }
 
     @Override
     public void onError(Throwable e) {
         e.printStackTrace();
-        subscription.unsubscribe();
+        disposable.dispose();
+    }
+
+    @Override
+    public void onComplete() {
+        disposable.dispose();
     }
 
     public abstract void updateProgress(int percent);
 
 
     public void onProgress() {
-        subscription = RxBus.getDefault()
+        RxBus.getDefault()
                 .toObservable(ProgressEvent.class)
-                .onBackpressureBuffer()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new EventSubscriber<ProgressEvent>() {
+                    @Override
+                    public void onSubscribe(Disposable disposable) {
+                        FileSubscriber.this.disposable = disposable;
+                    }
+
                     @Override
                     protected void onEvent(ProgressEvent event) {
                         updateProgress(event.percent);
