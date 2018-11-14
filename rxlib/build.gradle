@@ -23,8 +23,9 @@ android {
 }
 
 dependencies {
+    implementation 'com.android.support:appcompat-v7:27.1.1'
     //Retrofit
-    api 'com.squareup.retrofit2:retrofit:2.3.0'
+    api 'com.squareup.retrofit2:retrofit:2.4.0'
     api 'com.squareup.retrofit2:converter-gson:2.3.0'
     api 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
     //RxJava

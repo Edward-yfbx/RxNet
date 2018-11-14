@@ -1,8 +1,10 @@
 package com.yfbx.rxnet.net;
 
-import com.yfbx.rxlib.BaseNetCreator;
+import com.yfbx.rxlib.utils.RetrofitUtil;
+import com.yfbx.rxnet.BuildConfig;
 
 import okhttp3.Headers;
+import retrofit2.Retrofit;
 
 
 /**
@@ -10,34 +12,28 @@ import okhttp3.Headers;
  * Author:Edward
  * Description:
  */
-public class Net extends BaseNetCreator {
+public class Net {
 
-    private static final String HOST = "http://47.105.104.177:8081/burgerkingeam/";
+    private static final String HOST = "http://localhost:8080/";
+    private static Retrofit retrofit;
 
-
-    public synchronized static <T> T api(Class<T> clazz) {
-        return new Net().create(clazz);
+    public synchronized static <T> T create(Class<T> clazz) {
+        return getRetrofit().create(clazz);
     }
 
-    @Override
-    public String getHost() {
-        return HOST;
+    private static Retrofit getRetrofit() {
+        if (retrofit == null) {
+            retrofit = RetrofitUtil.getInstance(HOST, addHeaders(), BuildConfig.DEBUG, false);
+        }
+        return retrofit;
     }
 
-    @Override
-    public Headers addHeaders() {
+    /**
+     * 请求头
+     */
+    private static Headers addHeaders() {
         Headers.Builder builder = new Headers.Builder();
-        //builder.add("userId", "");
+        // TODO: 2018/11/13 add Headers
         return builder.build();
-    }
-
-    @Override
-    public boolean printLog() {
-        return true;
-    }
-
-    @Override
-    public boolean needDownloadProgress() {
-        return false;
     }
 }

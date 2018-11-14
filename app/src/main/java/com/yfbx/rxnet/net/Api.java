@@ -1,5 +1,7 @@
 package com.yfbx.rxnet.net;
 
+import com.yfbx.rxnet.bean.User;
+
 import retrofit2.http.Field;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
@@ -18,5 +20,5 @@ public interface Api {
      */
     @POST("loginController/login")
     @Headers({"Content-Type: application/json"})
-    Observable<NetResult<Object>> login(@Field("account") String account, @Field("password") String password);
+    Observable<NetResult<User>> login(@Field("account") String account, @Field("password") String password);
 }
