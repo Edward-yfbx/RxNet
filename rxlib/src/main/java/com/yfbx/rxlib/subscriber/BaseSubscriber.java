@@ -21,14 +21,12 @@ import rx.Subscriber;
 public class BaseSubscriber<T> extends Subscriber<T> implements LifecycleObserver, DialogInterface.OnCancelListener {
 
     private ProgressDialog loadingView;
-    private FragmentActivity context;
 
     public BaseSubscriber(FragmentActivity activity) {
         this(activity, true);
     }
 
     public BaseSubscriber(FragmentActivity activity, boolean showLoading) {
-        context = activity;
         activity.getLifecycle().addObserver(this);
         if (showLoading) {
             createLoading(activity);
@@ -40,7 +38,7 @@ public class BaseSubscriber<T> extends Subscriber<T> implements LifecycleObserve
     private void onStop(LifecycleOwner owner) {
         unsubscribe();
         dismissLoading();
-        context.getLifecycle().removeObserver(this);
+        owner.getLifecycle().removeObserver(this);
     }
 
     @Override
@@ -51,7 +49,6 @@ public class BaseSubscriber<T> extends Subscriber<T> implements LifecycleObserve
     @Override
     public void onCompleted() {
         dismissLoading();
-        context.getLifecycle().removeObserver(this);
     }
 
     @Override
