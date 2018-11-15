@@ -30,7 +30,6 @@ public abstract class MySubscriber<T> extends BaseSubscriber<NetResult<T>> {
 
     @Override
     public void onNext(NetResult<T> result) {
-        super.onNext(result);
         onSuccess(result.code, result.message, result.data);
     }
 

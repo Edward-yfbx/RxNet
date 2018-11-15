@@ -18,7 +18,7 @@ import io.reactivex.disposables.Disposable;
  * Description:
  */
 
-public class BaseSubscriber<T> implements Observer<T>, LifecycleObserver, DialogInterface.OnCancelListener {
+public abstract class BaseSubscriber<T> implements Observer<T>, LifecycleObserver, DialogInterface.OnCancelListener {
 
     private ProgressDialog loadingView;
     private Disposable disposable;
@@ -39,10 +39,6 @@ public class BaseSubscriber<T> implements Observer<T>, LifecycleObserver, Dialog
         this.disposable = disposable;
     }
 
-    @Override
-    public void onNext(T t) {
-
-    }
 
     @Override
     public void onError(Throwable e) {
